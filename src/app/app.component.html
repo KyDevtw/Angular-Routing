@@ -2,9 +2,11 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Servers</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <!-- routerLink 讓 angular rerender page without refreshing it -->
+        <li role="presentation" class="active"><a routerLink="/">Home</a></li>
+        <li role="presentation"><a routerLink="/servers">Servers</a></li>
+        <!-- 使用 property binding 的方式 要傳入對應的型別，所以變成 "'pathName'", 也可以使用 [] 裝起來 -->
+        <li role="presentation"><a [routerLink]="['/users']">Users</a></li>
       </ul>
     </div>
   </div>
