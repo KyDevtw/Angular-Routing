@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  onLoadServers(id: number) {
+    // navigate pass arrary as a param
+    // queryParams: {key: value} 帶 query string 到 path
+    // fragment: 帶 #string 到 path
+    this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: 1}, fragment: "loading"})
+  }
 }

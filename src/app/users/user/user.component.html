@@ -1,2 +1,5 @@
-<p>User with ID _ID_ loaded.</p>
-<p>User name is _NAME_</p>
+<p>User with ID {{user.id}} loaded.</p>
+<p>User name is {{user.name}}</p>
+<hr>
+<!-- 這裡會導至 /users/10/Kurt -->
+<a [routerLink]="['/users', 10, 'Kurt']">Load Kurt(10)</a>

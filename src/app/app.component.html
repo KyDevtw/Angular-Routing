@@ -3,10 +3,20 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
         <!-- routerLink 讓 angular rerender page without refreshing it -->
-        <li role="presentation" class="active"><a routerLink="/">Home</a></li>
-        <li role="presentation"><a routerLink="/servers">Servers</a></li>
+        <!-- routerLinkActive 會在該 router 上加上該值的 class (經過就算 所以 '/' 會一直被算進去)-->
+        <!-- [routerLinkActiveOptions] 強制等同於該路徑時才生效 -->
+        <!-- routerLinkActive 可以用在 a 也可以用在外包 a 的元素上 -->
+        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/">Home</a>
+        </li>
+        <!-- 加入 / 是絕對路徑，不加 是相對路徑，等於在該頁面下繼續往下找 ex /servers/servers -->
+        <li role="presentation" routerLinkActive="active">
+          <a routerLink="/servers">Servers</a>
+        </li>
         <!-- 使用 property binding 的方式 要傳入對應的型別，所以變成 "'pathName'", 也可以使用 [] 裝起來 -->
-        <li role="presentation"><a [routerLink]="['/users']">Users</a></li>
+        <li role="presentation" routerLinkActive="active">
+          <a [routerLink]="['/users']">Users</a>
+        </li>
       </ul>
     </div>
   </div>
