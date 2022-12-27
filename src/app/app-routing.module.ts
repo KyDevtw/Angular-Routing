@@ -1,3 +1,6 @@
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { CanComponentDeactivate, CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { AuthGuard } from './auth-guard.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; 
 
@@ -17,11 +20,23 @@ const appRoutes: Routes = [
     // pass dymanic string to path 
     {path: ':id/:name', component: UserComponent},
   ]},
-  {path: 'servers', component: ServersComponent, children: [
+  // canActivate 確保 servers and servers children 僅在 AuthGuard return true 時作用
+  // canActivateChild 確保 servers children 僅在 AuthGuard return true 時作用
+  {
+    path: 'servers', 
+    // canActivate: [AuthGuard] ,
+    canActivateChild: [AuthGuard] ,
+    component: ServersComponent, 
+    children: [
     {path: ':id', component: ServerComponent},
-    {path: ':id/edit', component: EditServerComponent}]
+    // canDeactivate angualr 會在要離開 path 時 run CanDeactivateGuard
+    {path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard]}]
   },
-  {path: 'not-found', component: PageNotFoundComponent},
+  // {path: 'not-found', component: PageNotFoundComponent},
+  // data pass static data with the Url
+  {path: 'not-found', component: ErrorPageComponent, data: {
+    message: 'Page Not Found!'
+  }},
   // ** means catch all route that not be found, always put it in the last
   // redirectTo 重新導向至 path
   {path: "**", redirectTo: '/not-found' }
