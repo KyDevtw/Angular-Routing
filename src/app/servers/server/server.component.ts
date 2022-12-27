@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 
 import { ServersService } from '../servers.service';
 
@@ -14,12 +14,20 @@ export class ServerComponent implements OnInit {
   constructor(private serversService: ServersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      (param: Params) => {
-        // + make params type as a number
-        this.server = this.serversService.getServer(+param['id']);
+
+    //  resolver is also binded to routes.data
+    this.route.data.subscribe(
+      (data: Data) => {
+        // server 名稱 => resolver: {`server`: value}
+        this.server = data['server']
       }
-    )
+    );
+    // this.route.params.subscribe(
+    //   (param: Params) => {
+    //     // + make params type as a number
+    //     this.server = this.serversService.getServer(+param['id']);
+    //   }
+    // )
   }
 
   onEdit() {
